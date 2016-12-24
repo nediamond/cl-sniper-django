@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from sniper_user.views import home, logout_view
+import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home),
-    url(r'^logout$', logout_view),
+    url(r'^$', views.home),
+    url(r'^logout$', views.logout_view),
 ]
