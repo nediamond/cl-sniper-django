@@ -33,7 +33,7 @@ def logout_view(request):
 
 
 def hits(request, sniper_id):
-    sniper = CLSniper.objects.get(id=sniper_id)
+    sniper = CLSniper.objects.filter(id=sniper_id).first()
     if not sniper or not sniper.owner == request.user:
         # TODO: Change this to a different error code?
         return HttpResponseForbidden()
