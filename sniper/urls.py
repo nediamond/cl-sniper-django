@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^$', views.home),
     url(r'^login$', views.login_view),
     url(r'^logout$', views.logout_view),
+    url(r'^hits/(?P<sniper_id>[0-9]+)/$', views.hits),
 ]
