@@ -10,12 +10,12 @@ def home(request):
     if request.user.is_authenticated:
         return user_index(request, request.user)
 
-    return render(request, 'display/login.html')
+    return render(request, 'login.html')
 
 
 def user_index(request, user):
     snipers = CLSniper.objects.filter(owner=user)
-    return render(request, 'display/index.html', {'snipers':snipers})
+    return render(request, 'index.html', {'snipers':snipers})
 
 
 def login_view(request):
@@ -38,6 +38,6 @@ def hits(request, sniper_id):
         # TODO: Change this to a different error code?
         return HttpResponseForbidden()
     _hits = Hit.objects.filter(sniper=sniper)
-    return render(request, 'display/sniper_details.html', {'sniper': sniper, 'hits': _hits})
+    return render(request, 'sniper_details.html', {'sniper': sniper, 'hits': _hits})
 
 
