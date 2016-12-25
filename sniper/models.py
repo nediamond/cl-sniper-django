@@ -8,6 +8,7 @@ class CLSniper(models.Model):
     query = models.TextField(max_length=140)
     min_price = models.IntegerField(null=True, blank=True)
     max_price = models.IntegerField(null=True, blank=True)
+    active = models.BooleanField(default=True)
 
     def _get_num_hits(self):
         return Hit.objects.filter(sniper=self).count()

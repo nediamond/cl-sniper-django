@@ -42,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">CL Sniper</a>
+          <a class="navbar-brand" href="/">CL Sniper</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -63,12 +63,18 @@
                 <th>Site</th>
                 <th>Query</th>
                 <th>Hits</th>
+                <th>Active</th>
             </tr>
             {% for sniper in snipers %}
                 <tr>
                     <td><a href="https://{{ sniper.site }}.craigslist.org">{{ sniper.site }}</a></td>
                     <td>{{ sniper.query }}</td>
                     <td><a href="hits/{{ sniper.id }}">{{ sniper.num_hits }}</a></td>
+                    {% if sniper.active %}
+                        <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                    {% else %}
+                        <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

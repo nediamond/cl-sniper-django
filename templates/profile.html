@@ -48,7 +48,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/">My Snipers</a></li>
             <li><a href="/new">New Sniper</a></li>
-            <li><a href="/profile">My Profile</a></li>
+            <li class="active"><a href="/profile">My Profile</a></li>
             <li><a href="/logout">Log Out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -56,36 +56,11 @@
     </nav>
 
     <div class="container">
-        <br><h2>Sniper Details</h2><br>
-            <ul>
-                <li><b>Site:</b> {{ sniper.site }}</li>
-                <li><b>Query:</b> {{ sniper.query }}</li>
-                {% if sniper.min_price %}
-                    <li><b>Min. Price:</b> {{ sniper.min_price}}</li>
-                {% endif %}
-                {% if sniper.max_price %}
-                    <li><b>Max. Price:</b> {{ sniper.max_price}}</li>
-                {% endif %}
-                <li><b>Active:</b> {{ sniper.active }}</li>
-            </ul>
-        <br><h2>Hits</h2><br>
-        <table class="table table-striped">
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Posted</th>
-                <th>Link</th>
-            </tr>
-            {% for hit in hits %}
-                <tr>
-                    <td>{{ hit.post_name }}</td>
-                    <td>${{ hit.price }}</td>
-                    <td>{{ hit.date }}</td>
-                    <td><a href="{{ hit.url }}"><button class="button button-default">&nbsp &nbsp</button></a></td>
-                </tr>
-            {% endfor %}
-        </table>
-
+        <br><h2>My Profile</h2><br>
+        <ul>
+            <li><b>Username:</b> {{ request.user.username }}</li>
+            <li><b>Email:</b> {{ request.user.email }}</li>
+        </ul>
     </div><!-- /.container -->
 
 

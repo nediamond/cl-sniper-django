@@ -8,8 +8,7 @@ from sniper.models import *
 from craigslist import CraigslistForSale
 
 
-
-for sniper in CLSniper.objects.all():
+for sniper in CLSniper.objects.filter(active=True):
     query = CraigslistForSale(site=sniper.site, filters={'search_titles': True,
                                                            'query': sniper.query,
                                                            'min_price': sniper.min_price,
@@ -18,9 +17,13 @@ for sniper in CLSniper.objects.all():
     for result in results:
         if not Hit.objects.filter(sniper=sniper, post_id=result['id']).exists():
             # TODO: Replace this with a Hit.objects.new_hit(..) method which sends notifications
+            try:
+                price=result['price'][1:]
+            except TypeError:
+                price=0
             Hit(sniper=sniper,
                 post_name=result['name'],
-                price=result['price'][1:],
+                price=price,
                 url=result['url'],
                 post_id=result['id'],
                 date=result['datetime']).save()
