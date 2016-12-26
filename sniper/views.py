@@ -8,13 +8,13 @@ from models import CLSniper, Hit
 @csrf_protect
 def home(request):
     if request.user.is_authenticated:
-        return user_index(request, request.user)
+        return user_index(request)
 
     return render(request, 'login.html')
 
 
-def user_index(request, user):
-    snipers = CLSniper.objects.filter(owner=user)
+def user_index(request):
+    snipers = CLSniper.objects.filter(owner=request.user)
     return render(request, 'index.html', {'snipers':snipers})
 
 @csrf_protect
