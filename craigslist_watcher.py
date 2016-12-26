@@ -37,11 +37,10 @@ def run():
 def send_email_alert(hit):
     try:
         message = """New CL Listing Matches query \"{0}\":\n\n\t{1}\n\n\tPrice: ${2}\n\n\t{3}
-                    \n\nTurn off notifications at http://cl-sniper.com by \
-                    setting sniper to inactive.""".format(hit.sniper.query,
-                                                          hit.post_name,
-                                                          hit.price,
-                                                          hit.url)
+                    \n\nTurn off notifications at http://cl-sniper.com by setting sniper to inactive.""".format(hit.sniper.query,
+                                                                                                                hit.post_name,
+                                                                                                                hit.price,
+                                                                                                                hit.url)
         email = EmailMessage("CL Sniper Hit for {0}".format(hit.sniper.owner),
                              message,
                              to=[hit.sniper.owner.email])
