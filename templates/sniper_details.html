@@ -58,7 +58,7 @@
     <div class="container">
         <br><h2>Sniper Details</h2><br>
             <ul>
-                <li><b>Site:</b> {{ sniper.site }}</li>
+                <li><b>Site:</b> <a href="https://{{ sniper.site }}.craigslist.org">{{ sniper.site }}</a></li>
                 <li><b>Query:</b> {{ sniper.query }}</li>
                 {% if sniper.min_price %}
                     <li><b>Min. Price:</b> {{ sniper.min_price}}</li>

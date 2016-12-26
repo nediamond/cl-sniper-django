@@ -71,9 +71,9 @@
                     <td>{{ sniper.query }}</td>
                     <td><a href="hits/{{ sniper.id }}">{{ sniper.num_hits }}</a></td>
                     {% if sniper.active %}
-                        <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                        <td><a href="/deactivate/{{ sniper.id }}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                     {% else %}
-                        <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                        <td><a href="/activate/{{ sniper.id }}" class="text-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                     {% endif %}
                 </tr>
             {% endfor %}

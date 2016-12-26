@@ -29,4 +29,6 @@ urlpatterns = [
     url(r'^new/$', views.new_sniper),
     url(r'^create$', views.create_sniper),
     url(r'^profile/$', views.user_profile),
+    url(r'^activate/(?P<sniper_id>[0-9]+)/$', views.activate_sniper),
+    url(r'^deactivate/(?P<sniper_id>[0-9]+)/$', views.deactivate_sniper),
 ]
