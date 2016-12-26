@@ -10,11 +10,11 @@ from django.core.mail import EmailMessage
 
 def run():
     for sniper in CLSniper.objects.filter(active=True):
-        query = CraigslistForSale(site=sniper.site, filters={'search_titles': True,
+        query = CraigslistForSale(site=sniper.site, filters={ 'search_titles': sniper.search_titles,
                                                                'query': sniper.query,
                                                                'min_price': sniper.min_price,
                                                                'max_price': sniper.max_price})
-        results = query.get_results(limit=5, sort_by='newest')
+        results = query.get_results(limit=10, sort_by='newest')
         for result in results:
             if not Hit.objects.filter(sniper=sniper, post_id=result['id']).exists():
                 try:
@@ -29,18 +29,21 @@ def run():
                               date=result['datetime'])
                 new_hit.save()
 
-                # TODO: only send alert for posts within last hour?
-                send_email_alert(new_hit)
+                # Only sending new post alerts for posts from within last 12 hours
+                if (datetime.datetime.now() - datetime.datetime.strptime(new_hit.date, '%Y-%m-%d %H:%M')
+                        < datetime.timedelta(hours=2)):
+                    send_email_alert(new_hit)
         time.sleep(5)
 
 
 def send_email_alert(hit):
     try:
-        message = """New CL Listing Matches query \"{0}\":\n\n\t{1}\n\n\tPrice: ${2}\n\n\t{3}
-                    \n\nTurn off notifications at http://cl-sniper.com by setting sniper to inactive.""".format(hit.sniper.query,
+        message = """New CL Listing Matches query \"{0}\":\n\n\t{1}\n\n\tPrice: ${2}\n\n\t{3}\n\n\tPosted: {4}
+                    \n\nTurn off notifications at http://cl-sniper.com by setting this sniper to inactive.""".format(hit.sniper.query,
                                                                                                                 hit.post_name,
                                                                                                                 hit.price,
-                                                                                                                hit.url)
+                                                                                                                hit.url,
+                                                                                                                hit.date)
         email = EmailMessage("CL Sniper Hit for {0}".format(hit.sniper.owner),
                              message,
                              to=[hit.sniper.owner.email])

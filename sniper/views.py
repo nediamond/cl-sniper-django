@@ -47,10 +47,14 @@ def create_sniper(request):
     owner = request.user
     site = request.POST['site']
     query = request.POST['query']
-    min_price = request.POST['min_price']
-    max_price = request.POST['max_price']
-
-    CLSniper(owner=owner, site=site, query=query, min_price=min_price, max_price=max_price).save()
+    min_price = request.POST['min_price'] or None
+    max_price = request.POST['max_price'] or None
+    search_titles = 'search_titles' in request.POST
+    CLSniper(owner=owner,
+             site=site, query=query,
+             min_price=min_price,
+             max_price=max_price,
+             search_titles=search_titles).save()
     return redirect('/')
 
 
