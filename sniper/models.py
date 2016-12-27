@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 class CLSniper(models.Model):
     owner = models.ForeignKey(User, unique=False)
-    site = models.TextField(max_length=30)
-    query = models.TextField(max_length=140)
+    site = models.TextField(max_length=30, null=False, blank=False)
+    query = models.TextField(max_length=140, null=False, blank=False)
     min_price = models.IntegerField(null=True, blank=True)
     max_price = models.IntegerField(null=True, blank=True)
     active = models.BooleanField(default=True)

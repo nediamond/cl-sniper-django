@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from models import CLSniper, Hit
+from django.contrib.auth.models import User
 
 
 @csrf_protect
@@ -47,6 +48,9 @@ def create_sniper(request):
     owner = request.user
     site = request.POST['site']
     query = request.POST['query']
+    # Needs better validation
+    if site == '' or query == '':
+        return redirect('/')
     min_price = request.POST['min_price'] or None
     max_price = request.POST['max_price'] or None
     search_titles = 'search_titles' in request.POST
@@ -89,4 +93,11 @@ def new_account(request):
     return render(request, 'new_user.html')
 
 def create_account(request):
+    # Need to validate emails before handing out accounts
+    # if request.method == 'POST':
+    #     username = request.POST['username']
+    #     password = request.POST['password']
+    #     email = request.POST['email']
+    #
+    #     User.objects.create_user(username=username,password=password,email=email).save()
     return redirect('/')
