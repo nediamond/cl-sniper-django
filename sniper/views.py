@@ -84,3 +84,9 @@ def deactivate_sniper(request, sniper_id):
     sniper.active = False
     sniper.save()
     return redirect('/')
+
+def new_account(request):
+    return render(request, 'new_user.html')
+
+def create_account(request):
+    return redirect('/')
