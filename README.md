@@ -1,4 +1,4 @@
-# Craigslist Sniper Web App
+# Craigslist Sniper
 A django web app for users to create and manage craigslist sniper notifications.
 
 Its functionality is based on the code in the [craigslist-sniper repo](https://github.com/nediamond/craigslist-sniper).
